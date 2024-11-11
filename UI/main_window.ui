@@ -67,6 +67,9 @@ color: rgb(255, 255, 255);</string>
        </item>
        <item>
         <widget class="QLabel" name="lb_title">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(216, 222, 211);</string>
+         </property>
          <property name="text">
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;GRIDPIPE&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
@@ -100,7 +103,12 @@ color: rgb(255, 255, 255);</string>
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">image: url(:/buttons/buttons/Window-Min.png);</string>
+          <string notr="true">QPushButton{
+	image: url(:/buttons/buttons/Window-Min.png);
+}
+QPushButton:hover{
+	image: url(:/buttons/buttons/Window-Min-Hover.png);
+}</string>
          </property>
          <property name="text">
           <string/>
@@ -116,7 +124,12 @@ color: rgb(255, 255, 255);</string>
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">image: url(:/buttons/buttons/Window-Close.tga);
+          <string notr="true">QPushButton{
+	image: url(:/buttons/buttons/Window-Close.tga);
+}
+QPushButton::hover{
+	image: url(:/buttons/buttons/Window-Close-Hover.png);
+}
 </string>
          </property>
          <property name="text">
@@ -127,7 +140,7 @@ color: rgb(255, 255, 255);</string>
       </layout>
      </widget>
     </item>
-    <item row="1" column="0">
+    <item row="2" column="0">
      <widget class="QTabWidget" name="tw_tabs">
       <property name="autoFillBackground">
        <bool>false</bool>
@@ -138,7 +151,7 @@ color: rgb(255, 255, 255);</string>
 } 
 QTabWidget::pane {
     background-color: #f0f0f0;  /* Light grey background */
-	border: 3px solid #656a62;
+	border: 3px solid #686a65;
 	border-top-right-radius: 5px; 
 	border-bottom-right-radius: 5px; 
 	border-bottom-left-radius: 5px; 
@@ -147,7 +160,7 @@ QTabWidget::pane {
 }
 
 QTabBar::tab {
-	color: rgb(255, 255, 255);
+	color: rgb(216, 222, 211);
 	font: 700 9pt &quot;Segoe UI&quot;;
 	background-color: rgb(81, 89, 76);
 	border-top-left-radius: 5px;
@@ -159,8 +172,8 @@ QTabBar::tab {
 
 QTabBar::tab:selected { 
   	
-	background-color: rgb(101, 106, 98);
-	color: rgb(150, 135, 50);
+	background-color: rgb(104, 106, 101);
+	color: rgb(196, 181, 80);
 	font: 700 9pt &quot;Segoe UI&quot;;
 	
 
@@ -171,7 +184,7 @@ QTabBar::tab:selected {
       </property>
       <widget class="QWidget" name="tab_games">
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(101, 106, 98);</string>
+        <string notr="true">background-color: rgb(104, 106, 101);</string>
        </property>
        <attribute name="title">
         <string>My games</string>
@@ -181,7 +194,7 @@ QTabBar::tab:selected {
          <number>9</number>
         </property>
         <item row="1" column="0">
-         <widget class="QFrame" name="frame">
+         <widget class="QFrame" name="fr_buttons">
           <property name="frameShape">
            <enum>QFrame::Shape::StyledPanel</enum>
           </property>
@@ -203,7 +216,7 @@ QTabBar::tab:selected {
             </spacer>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton_2">
+            <widget class="QPushButton" name="pb_properties">
              <property name="minimumSize">
               <size>
                <width>100</width>
@@ -223,7 +236,7 @@ padding:1px;</string>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton">
+            <widget class="QPushButton" name="pb_launch">
              <property name="minimumSize">
               <size>
                <width>100</width>
@@ -259,8 +272,8 @@ padding:1px;</string>
 }
 
 QHeaderView::section{
-	background-color: rgb(101, 106, 98);
-	color: rgb(255, 255, 255);
+	background-color: rgb(104, 106, 101);
+	color: rgb(216, 222, 211);
 	font: 700 9pt &quot;Segoe UI&quot;;
 	border-top: none;
 	border-right:1px solid qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 255), stop:1 rgba(255, 255, 255, 255));
@@ -425,6 +438,101 @@ QTableWidget::item:focus {
         <string>Tools</string>
        </attribute>
       </widget>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QWidget" name="w_menubar" native="true">
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <item>
+        <widget class="QPushButton" name="mpb_file">
+         <property name="styleSheet">
+          <string notr="true">QPushButton{
+border:none;
+font: 700 9pt &quot;Segoe UI&quot;;
+color: rgb(216, 222, 211);
+}
+QPushButton::hover{
+border:none;
+font: 700 9pt &quot;Segoe UI&quot;;
+	color: rgb(196, 181, 80);
+}</string>
+         </property>
+         <property name="text">
+          <string>File</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="mpb_view">
+         <property name="styleSheet">
+          <string notr="true">QPushButton{
+border:none;
+font: 700 9pt &quot;Segoe UI&quot;;
+color: rgb(216, 222, 211);
+}
+QPushButton::hover{
+border:none;
+font: 700 9pt &quot;Segoe UI&quot;;
+	color: rgb(196, 181, 80);
+}</string>
+         </property>
+         <property name="text">
+          <string>View</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="mpb_games">
+         <property name="styleSheet">
+          <string notr="true">QPushButton{
+border:none;
+font: 700 9pt &quot;Segoe UI&quot;;
+color: rgb(216, 222, 211);
+}
+QPushButton::hover{
+border:none;
+font: 700 9pt &quot;Segoe UI&quot;;
+	color: rgb(196, 181, 80);
+}</string>
+         </property>
+         <property name="text">
+          <string>Games</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="mpb_help">
+         <property name="styleSheet">
+          <string notr="true">QPushButton{
+border:none;
+font: 700 9pt &quot;Segoe UI&quot;;
+color: rgb(216, 222, 211);
+}
+QPushButton::hover{
+border:none;
+font: 700 9pt &quot;Segoe UI&quot;;
+	color: rgb(196, 181, 80);
+}</string>
+         </property>
+         <property name="text">
+          <string>Help</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Orientation::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
      </widget>
     </item>
    </layout>

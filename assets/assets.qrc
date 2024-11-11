@@ -4,7 +4,12 @@
     <file>logo.png</file>
     <file>logo.svg</file>
   </qresource>
+  <qresource prefix="bg">
+    <file>bg.png</file>
+  </qresource>
   <qresource prefix="buttons">
+    <file>buttons/Window-Close-Hover.png</file>
+    <file>buttons/Window-Min-Hover.png</file>
     <file>buttons/Window-Close.tga</file>
     <file>buttons/Window-Min.png</file>
   </qresource>
