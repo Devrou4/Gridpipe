@@ -2,15 +2,17 @@ from PySide6.QtWidgets import QMenu
 
 
 class CMenuBar:
-    def __init__(self, button):
+    def __init__(self, button, reset_games, game_dic):
         self.button = button
+        self.reset_games = reset_games
+        self.game_dic = game_dic
 
     def show_menu(self):
         # Create a menu
         menu = QMenu()
 
         # Add actions to the menu
-        option1 = menu.addAction("Option 1")
+        option1 = menu.addAction("Reset Games")
         option2 = menu.addAction("Option 2")
         option3 = menu.addAction("Option 3")
 
@@ -24,6 +26,8 @@ class CMenuBar:
 
     def option1(self):
         print("Option 1 selected")
+        self.reset_games(self.game_dic)
+
 
     def option2(self):
         print("Option 2 selected")
