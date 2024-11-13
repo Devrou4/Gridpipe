@@ -1,0 +1,20 @@
+[
+    {
+        "name": "Half-Life Uplink",
+        "year": "1999",
+        "developer": "valve",
+        "icon": "./assets/games/icons/hluplink.png",
+        "source": "https://archive.org/download/Half-lifeUplink/hluplink.exe",
+        "status": "Installed",
+        "exe": "hluplink.exe"
+    },
+    {
+        "name": "cs",
+        "year": "2000",
+        "developer": "valve",
+        "icon": "",
+        "source": "",
+        "status": "Not Installed",
+        "exe": "test"
+    }
+]

@@ -188,30 +188,6 @@ class Ui_MainWindow(object):
         self.tbl_games.setHorizontalHeaderItem(2, __qtablewidgetitem2)
         __qtablewidgetitem3 = QTableWidgetItem()
         self.tbl_games.setHorizontalHeaderItem(3, __qtablewidgetitem3)
-        if (self.tbl_games.rowCount() < 4):
-            self.tbl_games.setRowCount(4)
-        __qtablewidgetitem4 = QTableWidgetItem()
-        self.tbl_games.setVerticalHeaderItem(0, __qtablewidgetitem4)
-        __qtablewidgetitem5 = QTableWidgetItem()
-        self.tbl_games.setVerticalHeaderItem(1, __qtablewidgetitem5)
-        __qtablewidgetitem6 = QTableWidgetItem()
-        self.tbl_games.setVerticalHeaderItem(2, __qtablewidgetitem6)
-        __qtablewidgetitem7 = QTableWidgetItem()
-        self.tbl_games.setVerticalHeaderItem(3, __qtablewidgetitem7)
-        __qtablewidgetitem8 = QTableWidgetItem()
-        self.tbl_games.setItem(0, 0, __qtablewidgetitem8)
-        __qtablewidgetitem9 = QTableWidgetItem()
-        self.tbl_games.setItem(0, 1, __qtablewidgetitem9)
-        __qtablewidgetitem10 = QTableWidgetItem()
-        self.tbl_games.setItem(0, 3, __qtablewidgetitem10)
-        __qtablewidgetitem11 = QTableWidgetItem()
-        self.tbl_games.setItem(1, 0, __qtablewidgetitem11)
-        __qtablewidgetitem12 = QTableWidgetItem()
-        self.tbl_games.setItem(1, 1, __qtablewidgetitem12)
-        __qtablewidgetitem13 = QTableWidgetItem()
-        self.tbl_games.setItem(2, 0, __qtablewidgetitem13)
-        __qtablewidgetitem14 = QTableWidgetItem()
-        self.tbl_games.setItem(3, 0, __qtablewidgetitem14)
         self.tbl_games.setObjectName(u"tbl_games")
         self.tbl_games.setStyleSheet(u"QTableWidget{\n"
 "	\n"
@@ -373,19 +349,6 @@ class Ui_MainWindow(object):
         ___qtablewidgetitem2.setText(QCoreApplication.translate("MainWindow", u"Year Released", None));
         ___qtablewidgetitem3 = self.tbl_games.horizontalHeaderItem(3)
         ___qtablewidgetitem3.setText(QCoreApplication.translate("MainWindow", u"Developer", None));
-
-        __sortingEnabled = self.tbl_games.isSortingEnabled()
-        self.tbl_games.setSortingEnabled(False)
-        ___qtablewidgetitem4 = self.tbl_games.item(0, 0)
-        ___qtablewidgetitem4.setText(QCoreApplication.translate("MainWindow", u"Game 1", None));
-        ___qtablewidgetitem5 = self.tbl_games.item(1, 0)
-        ___qtablewidgetitem5.setText(QCoreApplication.translate("MainWindow", u"Game 2", None));
-        ___qtablewidgetitem6 = self.tbl_games.item(2, 0)
-        ___qtablewidgetitem6.setText(QCoreApplication.translate("MainWindow", u"Game 3", None));
-        ___qtablewidgetitem7 = self.tbl_games.item(3, 0)
-        ___qtablewidgetitem7.setText(QCoreApplication.translate("MainWindow", u"Game 4", None));
-        self.tbl_games.setSortingEnabled(__sortingEnabled)
-
         self.tw_tabs.setTabText(self.tw_tabs.indexOf(self.tab_games), QCoreApplication.translate("MainWindow", u"My games", None))
         self.tw_tabs.setTabText(self.tw_tabs.indexOf(self.tab_tools), QCoreApplication.translate("MainWindow", u"Tools", None))
         self.mpb_file.setText(QCoreApplication.translate("MainWindow", u"File", None))
