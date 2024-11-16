@@ -8,6 +8,9 @@
     <file>bg.png</file>
   </qresource>
   <qresource prefix="buttons">
+    <file>buttons/install_button.png</file>
+    <file>buttons/launch_button.png</file>
+    <file>buttons/properties_button.png</file>
     <file>buttons/Window-Close-Hover.png</file>
     <file>buttons/Window-Min-Hover.png</file>
     <file>buttons/Window-Close.tga</file>

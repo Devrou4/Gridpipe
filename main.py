@@ -6,7 +6,7 @@ from PySide6 import QtGui as qtg
 from UI.main_window import Ui_MainWindow
 from menubar import CMenuBar
 import json
-from testfetch import GameFetch
+from gamefetch import GameFetch
 import subprocess
 import threading
 
@@ -55,18 +55,43 @@ class MainWindow(qtw.QMainWindow, Ui_MainWindow):
         # Disable Editing
         self.tbl_games.setEditTriggers(qtw.QAbstractItemView.EditTrigger.NoEditTriggers)
 
-
-
         self.populate_games(self.games_dic)
         self.downloader = GameFetch(self.tbl_games)
 
     def check_status(self):
         if self.tbl_games.item(self.tbl_games.currentRow(), 1).text() == 'Not Installed':
             self.pb_launch.setText('Install')
+            self.pb_launch.setStyleSheet('''
+            QPushButton {
+                background-image: url(:/buttons/buttons/install_button.png);
+                background-position: center; /* Center the image */
+                background-repeat: no-repeat; /* Prevent tiling */
+                border: none; /* Remove button borders to match the image */
+                color: rgba(255, 255, 255, 0);
+            }
+            ''')
         elif self.tbl_games.item(self.tbl_games.currentRow(), 1).text() == 'Installed':
             self.pb_launch.setText('Launch')
+            self.pb_launch.setStyleSheet('''
+            QPushButton {
+                background-image: url(:/buttons/buttons/launch_button.png);
+                background-position: center; /* Center the image */
+                background-repeat: no-repeat; /* Prevent tiling */
+                border: none; /* Remove button borders to match the image */
+                color: rgba(255, 255, 255, 0);
+            }
+            ''')
         else:
             self.pb_launch.setText('Install')
+            self.pb_launch.setStyleSheet('''
+            QPushButton {
+                background-image: url(:/buttons/buttons/launch_button.png);
+                background-position: center; /* Center the image */
+                background-repeat: no-repeat; /* Prevent tiling */
+                border: none; /* Remove button borders to match the image */
+                color: rgba(255, 255, 255, 0);
+            }
+            ''')
 
     def launch_mode(self):
         if self.pb_launch.text() == 'Install':
@@ -78,7 +103,8 @@ class MainWindow(qtw.QMainWindow, Ui_MainWindow):
             # self.tbl_games.setFocus()
             for game in self.games_dic:
                 if game.get('name') == self.tbl_games.item(self.tbl_games.currentRow(), 0).text():
-                    game_path = f'"games/{os.path.join('/', game.get('name'), game.get('exe'))}"'
+                    # game_path = f'"games/{os.path.join('/', game.get('name'), game.get('exe'))}"'
+                    game_path = os.path.join(game.get('directory'), game.get('exe'))
                     subprocess.Popen(game_path, shell=True)
 
     def install_game(self):
@@ -88,27 +114,24 @@ class MainWindow(qtw.QMainWindow, Ui_MainWindow):
 
                 def update_games(download_success, game, row):
                     if download_success:
-                        os.remove(os.path.abspath('./games/game.zip'))
+
                         game["status"] = "Installed"
                         print('Installed')
                         with open("games.json", "w") as file:
                             json.dump(self.games_dic, file, indent=4)
 
-
                         self.populate_games(self.games_dic)
                     else:
-                        if os.path.exists(os.path.abspath('./games/game.zip')):
-                            os.remove(os.path.abspath('./games/game.zip'))
                         self.tbl_games.item(row, 1).setText("ERROR")
 
                 if game.get('name') == self.tbl_games.item(self.tbl_games.currentRow(), 0).text():
                     print(game)
-                    print('DOWNLOADING')
                     self.tbl_games.item(self.tbl_games.currentRow(), 1).setText("Connecting...")
+                    # TODO make the foreground active on focus
                     self.tbl_games.item(self.tbl_games.currentRow(), 1).setForeground(qtg.QColor(196, 181, 80))
 
                     row = self.tbl_games.currentRow()
-                    download_thread = threading.Thread(target=lambda: update_games(self.downloader.download_file(game.get('source'), './games/game.zip', row), game, row))
+                    download_thread = threading.Thread(target=lambda: update_games(self.downloader.download_file(game.get('source'), row), game, row))
                     download_thread.start()
 
                     # update_thread = threading.Thread(target=update_games, args=(download_thread, game))
@@ -130,6 +153,7 @@ class MainWindow(qtw.QMainWindow, Ui_MainWindow):
 
             icon = qtg.QIcon()
             pixmap = qtg.QPixmap(game.get('icon'))
+            # TODO icon.addFile() test to fix resolution
             icon.addPixmap(pixmap, qtg.QIcon.Mode.Normal)
             icon.addPixmap(pixmap, qtg.QIcon.Mode.Selected)
             self.tbl_games.item(row_position, 0).setIcon(icon)
@@ -151,6 +175,8 @@ class MainWindow(qtw.QMainWindow, Ui_MainWindow):
             new_pos = event.globalPosition().toPoint() - self.drag_pos
             self.move(new_pos)
             event.accept()
+
+    # TODO add resize nudge
 
 
 if __name__ == "__main__":

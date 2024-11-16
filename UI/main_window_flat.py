@@ -32,7 +32,6 @@ class Ui_MainWindow(object):
         self.centralwidget.setStyleSheet(u"#centralwidget{\n"
 "background-color: rgb(63, 71, 56);\n"
 "border-radius: 15px;\n"
-"	background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(63, 71, 56, 255), stop:0.610734 rgba(70, 70, 70, 255));\n"
 "}")
         self.gridLayout = QGridLayout(self.centralwidget)
         self.gridLayout.setObjectName(u"gridLayout")
@@ -108,12 +107,6 @@ class Ui_MainWindow(object):
 "QTabWidget::pane {\n"
 "    background-color: #f0f0f0;  /* Light grey background */\n"
 "	border: 3px solid #686a65;\n"
-"	border-top: 3px solid #686a65;\n"
-"	border-left: 3px solid qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0.92605 rgba(104, 106, 101, 255), stop:1 rgba(94, 92, 89, 255));\n"
-"	border-right: 3px solid qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0.92605 rgba(104, 106, 101, 255), stop:1 rgba(94, 92, 89, 255));\n"
-"	border-bottom: 2px solid rgb(94,92,89);\n"
-"	\n"
-"	\n"
 "	border-top-right-radius: 5px; \n"
 "	border-bottom-right-radius: 5px; \n"
 "	border-bottom-left-radius: 5px; \n"
@@ -131,8 +124,7 @@ class Ui_MainWindow(object):
 "	margin-right: 3px;\n"
 "	margin-left: 3px;\n"
 "} \n"
-""
-                        "\n"
+"\n"
 "QTabBar::tab:selected { \n"
 "  	\n"
 "	background-color: rgb(104, 106, 101);\n"
@@ -143,44 +135,39 @@ class Ui_MainWindow(object):
 "}")
         self.tab_games = QWidget()
         self.tab_games.setObjectName(u"tab_games")
-        self.tab_games.setStyleSheet(u"background-color: rgb(104, 106, 101);\n"
-"background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0.92605 rgba(104, 106, 101, 255), stop:1 rgba(94, 92, 89, 255));")
+        self.tab_games.setStyleSheet(u"background-color: rgb(104, 106, 101);")
         self.gridLayout_2 = QGridLayout(self.tab_games)
         self.gridLayout_2.setObjectName(u"gridLayout_2")
         self.gridLayout_2.setContentsMargins(9, -1, -1, -1)
         self.fr_buttons = QFrame(self.tab_games)
         self.fr_buttons.setObjectName(u"fr_buttons")
-        self.fr_buttons.setStyleSheet(u"background-color: rgba(255, 255, 255, 0);")
         self.fr_buttons.setFrameShape(QFrame.Shape.StyledPanel)
         self.fr_buttons.setFrameShadow(QFrame.Shadow.Raised)
         self.horizontalLayout_2 = QHBoxLayout(self.fr_buttons)
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.horizontalLayout_2.setContentsMargins(6, 6, 6, 6)
         self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout_2.addItem(self.horizontalSpacer_2)
 
         self.pb_properties = QPushButton(self.fr_buttons)
         self.pb_properties.setObjectName(u"pb_properties")
-        self.pb_properties.setMinimumSize(QSize(100, 30))
-        self.pb_properties.setStyleSheet(u"QPushButton {\n"
-"    background-image: url(:/buttons/buttons/properties_button.png);\n"
-"    background-position: center; /* Center the image */\n"
-"    background-repeat: no-repeat; /* Prevent tiling */\n"
-"    border: none; /* Remove button borders to match the image */\n"
-"}")
+        self.pb_properties.setMinimumSize(QSize(100, 0))
+        self.pb_properties.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"font: 700 9pt \"Segoe UI\";\n"
+"border: 3px solid white;\n"
+"border-radius: 5px;\n"
+"padding:1px;")
 
         self.horizontalLayout_2.addWidget(self.pb_properties)
 
         self.pb_launch = QPushButton(self.fr_buttons)
         self.pb_launch.setObjectName(u"pb_launch")
-        self.pb_launch.setMinimumSize(QSize(100, 30))
-        self.pb_launch.setStyleSheet(u"QPushButton {\n"
-"    background-image: url(:/buttons/buttons/launch_button.png);\n"
-"    background-position: center; /* Center the image */\n"
-"    background-repeat: no-repeat; /* Prevent tiling */\n"
-"    border: none; /* Remove button borders to match the image */\n"
-"}")
+        self.pb_launch.setMinimumSize(QSize(100, 0))
+        self.pb_launch.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"font: 700 9pt \"Segoe UI\";\n"
+"border: 3px solid white;\n"
+"border-radius: 5px;\n"
+"padding:1px;")
 
         self.horizontalLayout_2.addWidget(self.pb_launch)
 
@@ -205,13 +192,8 @@ class Ui_MainWindow(object):
         self.tbl_games.setStyleSheet(u"QTableWidget{\n"
 "	\n"
 "	background-color: rgb(70, 78, 71);\n"
-"	\n"
-"\n"
-"	border-image: url(:/bg/bg.png) 0 0 0 0 stretch stretch;\n"
-"\n"
 "	color: rgb(255, 255, 255);\n"
 "	font: 700 9pt \"Segoe UI\";\n"
-"	\n"
 "	border: none;\n"
 "	selection-background-color: transparent;\n"
 "	outline: none;\n"
@@ -229,8 +211,7 @@ class Ui_MainWindow(object):
 "\n"
 "}\n"
 "QTableWidget::item {\n"
-"	\n"
-"	background-color: rgba(255, 255, 255, 0);\n"
+"	background-color: rgb(70, 78, 71);\n"
 "	padding: 5px;\n"
 "}\n"
 "\n"
@@ -244,8 +225,7 @@ class Ui_MainWindow(object):
 "}\n"
 "\n"
 "QTableWidget::item:focus {\n"
-"	color: rgb"
-                        "(255, 255, 255);\n"
+"	color: rgb(255, 255, 255);\n"
 "    outline: none;  /* Remove focus outline */\n"
 "}\n"
 "")
@@ -265,7 +245,7 @@ class Ui_MainWindow(object):
         self.tbl_games.verticalHeader().setCascadingSectionResizes(False)
         self.tbl_games.verticalHeader().setHighlightSections(False)
 
-        self.gridLayout_2.addWidget(self.tbl_games, 0, 0, 1, 2)
+        self.gridLayout_2.addWidget(self.tbl_games, 0, 0, 1, 1)
 
         self.tw_tabs.addTab(self.tab_games, "")
         self.tab_tools = QWidget()
@@ -361,8 +341,8 @@ class Ui_MainWindow(object):
         self.lb_title.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-weight:700;\">GRIDPIPE</span></p></body></html>", None))
         self.pb_min.setText("")
         self.pb_close.setText("")
-        self.pb_properties.setText("")
-        self.pb_launch.setText("")
+        self.pb_properties.setText(QCoreApplication.translate("MainWindow", u"Properties", None))
+        self.pb_launch.setText(QCoreApplication.translate("MainWindow", u"Launch", None))
         ___qtablewidgetitem = self.tbl_games.horizontalHeaderItem(0)
         ___qtablewidgetitem.setText(QCoreApplication.translate("MainWindow", u"Games", None));
         ___qtablewidgetitem1 = self.tbl_games.horizontalHeaderItem(1)

@@ -21,7 +21,6 @@
     <string notr="true">#centralwidget{
 background-color: rgb(63, 71, 56);
 border-radius: 15px;
-	background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 rgba(63, 71, 56, 255), stop:0.610734 rgba(70, 70, 70, 255));
 }</string>
    </property>
    <layout class="QGridLayout" name="gridLayout">
@@ -153,12 +152,6 @@ QPushButton::hover{
 QTabWidget::pane {
     background-color: #f0f0f0;  /* Light grey background */
 	border: 3px solid #686a65;
-	border-top: 3px solid #686a65;
-	border-left: 3px solid qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0.92605 rgba(104, 106, 101, 255), stop:1 rgba(94, 92, 89, 255));
-	border-right: 3px solid qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0.92605 rgba(104, 106, 101, 255), stop:1 rgba(94, 92, 89, 255));
-	border-bottom: 2px solid rgb(94,92,89);
-	
-	
 	border-top-right-radius: 5px; 
 	border-bottom-right-radius: 5px; 
 	border-bottom-left-radius: 5px; 
@@ -191,8 +184,7 @@ QTabBar::tab:selected {
       </property>
       <widget class="QWidget" name="tab_games">
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(104, 106, 101);
-background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0.92605 rgba(104, 106, 101, 255), stop:1 rgba(94, 92, 89, 255));</string>
+        <string notr="true">background-color: rgb(104, 106, 101);</string>
        </property>
        <attribute name="title">
         <string>My games</string>
@@ -203,9 +195,6 @@ background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0
         </property>
         <item row="1" column="0">
          <widget class="QFrame" name="fr_buttons">
-          <property name="styleSheet">
-           <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
-          </property>
           <property name="frameShape">
            <enum>QFrame::Shape::StyledPanel</enum>
           </property>
@@ -213,18 +202,6 @@ background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0
            <enum>QFrame::Shadow::Raised</enum>
           </property>
           <layout class="QHBoxLayout" name="horizontalLayout_2">
-           <property name="leftMargin">
-            <number>6</number>
-           </property>
-           <property name="topMargin">
-            <number>6</number>
-           </property>
-           <property name="rightMargin">
-            <number>6</number>
-           </property>
-           <property name="bottomMargin">
-            <number>6</number>
-           </property>
            <item>
             <spacer name="horizontalSpacer_2">
              <property name="orientation">
@@ -243,19 +220,18 @@ background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0
              <property name="minimumSize">
               <size>
                <width>100</width>
-               <height>30</height>
+               <height>0</height>
               </size>
              </property>
              <property name="styleSheet">
-              <string notr="true">QPushButton {
-    background-image: url(:/buttons/buttons/properties_button.png);
-    background-position: center; /* Center the image */
-    background-repeat: no-repeat; /* Prevent tiling */
-    border: none; /* Remove button borders to match the image */
-}</string>
+              <string notr="true">color: rgb(255, 255, 255);
+font: 700 9pt &quot;Segoe UI&quot;;
+border: 3px solid white;
+border-radius: 5px;
+padding:1px;</string>
              </property>
              <property name="text">
-              <string/>
+              <string>Properties</string>
              </property>
             </widget>
            </item>
@@ -264,38 +240,32 @@ background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0
              <property name="minimumSize">
               <size>
                <width>100</width>
-               <height>30</height>
+               <height>0</height>
               </size>
              </property>
              <property name="styleSheet">
-              <string notr="true">QPushButton {
-    background-image: url(:/buttons/buttons/launch_button.png);
-    background-position: center; /* Center the image */
-    background-repeat: no-repeat; /* Prevent tiling */
-    border: none; /* Remove button borders to match the image */
-}</string>
+              <string notr="true">color: rgb(255, 255, 255);
+font: 700 9pt &quot;Segoe UI&quot;;
+border: 3px solid white;
+border-radius: 5px;
+padding:1px;</string>
              </property>
              <property name="text">
-              <string/>
+              <string>Launch</string>
              </property>
             </widget>
            </item>
           </layout>
          </widget>
         </item>
-        <item row="0" column="0" colspan="2">
+        <item row="0" column="0">
          <widget class="QTableWidget" name="tbl_games">
           <property name="styleSheet">
            <string notr="true">QTableWidget{
 	
 	background-color: rgb(70, 78, 71);
-	
-
-	border-image: url(:/bg/bg.png) 0 0 0 0 stretch stretch;
-
 	color: rgb(255, 255, 255);
 	font: 700 9pt &quot;Segoe UI&quot;;
-	
 	border: none;
 	selection-background-color: transparent;
 	outline: none;
@@ -313,8 +283,7 @@ QTableCornerButton::section {
 
 }
 QTableWidget::item {
-	
-	background-color: rgba(255, 255, 255, 0);
+	background-color: rgb(70, 78, 71);
 	padding: 5px;
 }
 

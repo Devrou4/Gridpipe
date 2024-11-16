@@ -2,11 +2,12 @@
     {
         "name": "Half-Life Uplink",
         "year": "1999",
-        "developer": "valve",
+        "developer": "Valve",
         "icon": "./assets/games/icons/hluplink.png",
         "source": "https://archive.org/download/Half-lifeUplink/hluplink.exe",
-        "status": "Not Installed",
-        "exe": "hluplink.exe"
+        "directory": "",
+        "exe": "hluplink.exe",
+        "status": "Not Installed"
     },
     {
         "name": "Codename Gordon",
@@ -14,7 +15,8 @@
         "developer": "Nuclear Vision",
         "icon": "./assets/games/icons/codename_gordon.ico",
         "source": "https://archive.org/download/codename-gordon/Codename%20Gordon.zip",
-        "status": "Installed",
-        "exe": "cg.exe"
+        "directory": "./games/Codename Gordon",
+        "exe": "cg.exe",
+        "status": "Installed"
     }
 ]
