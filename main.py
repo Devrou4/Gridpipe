@@ -4,6 +4,8 @@ from PySide6 import QtWidgets as qtw
 from PySide6 import QtGui as qtg
 
 from UI.main_window import Ui_MainWindow
+from game_properties.game_properties_dialog import PropertiesDialog
+
 from menubar import CMenuBar
 import json
 from gamefetch import GameFetch
@@ -45,6 +47,7 @@ class MainWindow(qtw.QMainWindow, Ui_MainWindow):
         self.cmenubar = CMenuBar(self.mpb_file, self.populate_games, self.games_dic)
         self.pb_launch.clicked.connect(self.launch_mode)
         self.mpb_file.clicked.connect(self.cmenubar.show_menu)
+        self.pb_properties.clicked.connect(self.open_properties)
 
         # Enable dragging by setting mouse event handlers on title bar
         self.f_titlebar.mousePressEvent = self.start_drag
@@ -59,7 +62,9 @@ class MainWindow(qtw.QMainWindow, Ui_MainWindow):
         self.downloader = GameFetch(self.tbl_games)
 
     def check_status(self):
-        if self.tbl_games.item(self.tbl_games.currentRow(), 1).text() == 'Not Installed':
+        status_col = self.tbl_games.item(self.tbl_games.currentRow(), 1).text().strip()
+        if status_col == 'Not Installed':
+            self.pb_launch.setDisabled(False)
             self.pb_launch.setText('Install')
             self.pb_launch.setStyleSheet('''
             QPushButton {
@@ -70,7 +75,8 @@ class MainWindow(qtw.QMainWindow, Ui_MainWindow):
                 color: rgba(255, 255, 255, 0);
             }
             ''')
-        elif self.tbl_games.item(self.tbl_games.currentRow(), 1).text() == 'Installed':
+        elif status_col == 'Installed':
+            self.pb_launch.setDisabled(False)
             self.pb_launch.setText('Launch')
             self.pb_launch.setStyleSheet('''
             QPushButton {
@@ -81,11 +87,14 @@ class MainWindow(qtw.QMainWindow, Ui_MainWindow):
                 color: rgba(255, 255, 255, 0);
             }
             ''')
+        elif status_col.startswith('Downloaded'):
+            self.pb_launch.setDisabled(True)
         else:
+            self.pb_launch.setDisabled(False)
             self.pb_launch.setText('Install')
             self.pb_launch.setStyleSheet('''
             QPushButton {
-                background-image: url(:/buttons/buttons/launch_button.png);
+                background-image: url(:/buttons/buttons/install_button.png);
                 background-position: center; /* Center the image */
                 background-repeat: no-repeat; /* Prevent tiling */
                 border: none; /* Remove button borders to match the image */
@@ -97,7 +106,8 @@ class MainWindow(qtw.QMainWindow, Ui_MainWindow):
         if self.pb_launch.text() == 'Install':
             print('game not installed')
             self.install_game()
-            # self.tbl_games.setFocus()
+            # TODO make the install button unusable as soon as pressing (not on reselection)
+            self.tbl_games.clearSelection()
         else:
             print('starting game')
             # self.tbl_games.setFocus()
@@ -105,7 +115,8 @@ class MainWindow(qtw.QMainWindow, Ui_MainWindow):
                 if game.get('name') == self.tbl_games.item(self.tbl_games.currentRow(), 0).text():
                     # game_path = f'"games/{os.path.join('/', game.get('name'), game.get('exe'))}"'
                     game_path = os.path.join(game.get('directory'), game.get('exe'))
-                    subprocess.Popen(game_path, shell=True)
+                    print(game_path)
+                    subprocess.Popen(os.path.abspath(game_path), shell=True)
 
     def install_game(self):
         if self.tbl_games.item(self.tbl_games.currentRow(), 1).text() != 'Installed':
@@ -113,16 +124,16 @@ class MainWindow(qtw.QMainWindow, Ui_MainWindow):
             for game in self.games_dic:
 
                 def update_games(download_success, game, row):
-                    if download_success:
 
+                    if download_success:
+                        print(game)
                         game["status"] = "Installed"
-                        print('Installed')
                         with open("games.json", "w") as file:
                             json.dump(self.games_dic, file, indent=4)
-
+                        print('Installed')
                         self.populate_games(self.games_dic)
-                    else:
-                        self.tbl_games.item(row, 1).setText("ERROR")
+                    #else:
+                        #self.tbl_games.item(row, 1).setText("ERROR")
 
                 if game.get('name') == self.tbl_games.item(self.tbl_games.currentRow(), 0).text():
                     print(game)
@@ -131,9 +142,11 @@ class MainWindow(qtw.QMainWindow, Ui_MainWindow):
                     self.tbl_games.item(self.tbl_games.currentRow(), 1).setForeground(qtg.QColor(196, 181, 80))
 
                     row = self.tbl_games.currentRow()
-                    download_thread = threading.Thread(target=lambda: update_games(self.downloader.download_file(game.get('source'), row), game, row))
+                    source = game.get('source')
+                    is_mod = game.get('isMod')
+                    download_thread = threading.Thread(target=lambda: update_games(self.downloader.download_file(source, is_mod, row), game, row))
                     download_thread.start()
-
+                    break
                     # update_thread = threading.Thread(target=update_games, args=(download_thread, game))
                     # # self.downloader.download_file(game.get('source'), game.get('exe'))
                     # update_thread.start()
@@ -162,6 +175,19 @@ class MainWindow(qtw.QMainWindow, Ui_MainWindow):
                 for col in range(self.tbl_games.columnCount()-1):
                     cell = self.tbl_games.item(row_position, col)
                     cell.setForeground(qtg.QColor(121, 126, 121))
+
+    def open_properties(self):
+
+        name_col = self.tbl_games.item(self.tbl_games.currentRow(), 0).text().strip()
+        for game in self.games_dic:
+            if name_col == game.get('name'):
+                self.dialog = PropertiesDialog(game)
+                self.dialog.show()
+
+                break
+        with open("games.json", "r") as file:
+            local_games = json.load(file)
+        self.dialog.uninstalled_game.connect(lambda: self.populate_games(local_games))
 
     def start_drag(self, event):
         if event.button() == qtc.Qt.MouseButton.LeftButton:

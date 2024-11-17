@@ -1,12 +1,35 @@
 [
     {
+        "name": "Half-Life",
+        "year": "1999",
+        "developer": "Valve",
+        "icon": "./assets/games/icons/hl.ico",
+        "source": "https://archive.org/download/half-life_20210825/Half-Life.zip",
+        "directory": "./games/Half-Life",
+        "exe": "hl.exe",
+        "isMod": "no",
+        "status": "Installed"
+    },
+    {
+        "name": "Counter-Strike 1.5",
+        "year": "1999",
+        "developer": "Valve",
+        "icon": "./assets/games/icons/cs.ico",
+        "source": "https://archive.org/download/counter-strike-1.5/csv15full_cstrike.zip",
+        "directory": "./games/Half-Life",
+        "exe": "hl.exe -game cstrike",
+        "isMod": "hl/cstrike",
+        "status": "Installed"
+    },
+    {
         "name": "Half-Life Uplink",
         "year": "1999",
         "developer": "Valve",
-        "icon": "./assets/games/icons/hluplink.png",
+        "icon": "./assets/games/icons/hluplink.ico",
         "source": "https://archive.org/download/Half-lifeUplink/hluplink.exe",
-        "directory": "",
+        "directory": "./games/hluplink",
         "exe": "hluplink.exe",
+        "isMod": "no",
         "status": "Not Installed"
     },
     {
@@ -17,6 +40,7 @@
         "source": "https://archive.org/download/codename-gordon/Codename%20Gordon.zip",
         "directory": "./games/Codename Gordon",
         "exe": "cg.exe",
-        "status": "Installed"
+        "isMod": "no",
+        "status": "Not Installed"
     }
 ]

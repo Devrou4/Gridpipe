@@ -6,11 +6,21 @@ import zipfile
 class GameFetch:
     def __init__(self, games):
         self.games = games
+        self.is_mod = None
         self.row = None
         self.file_name = None
+        self.mod = None
 
-    def download_file(self, url, row):
-        self.row = row
+    def download_file(self, url, is_mod, row):
+        self.row = int(row)
+        self.is_mod = is_mod
+        self.mod = str(self.is_mod).split('/')
+        if self.mod[0] == 'hl' and not os.path.exists(os.path.abspath('./games/Half-Life')):
+            print('Half-Life not Installed')
+            self.games.item(self.row, 1).setText("Install Half-Life")
+            return
+        else:
+            pass
 
         try:
             # Use urllib.request.urlretrieve with a built-in progress report
@@ -18,27 +28,32 @@ class GameFetch:
             download_path = os.path.join(os.path.abspath('./games'), self.file_name)
             print(f'Downloading {self.file_name}')
             urllib.request.urlretrieve(url, download_path, reporthook=self.download_progress)
-        except Exception as e:
-            print(e)
-            return False
+        except Exception:
+            self.games.item(self.row, 1).setText("Connection ERROR")
+            return
         try:
             self.install_game(download_path)
         except zipfile.BadZipfile:
             print("\nCorrupted zip or non-zip file")
+            self.games.item(self.row, 1).setText("Format ERROR")
             if os.path.exists(download_path):
                 os.remove(download_path)
             return False
         except zipfile.error:
             print(zipfile.error)
         except Exception as e:
-            print(e)
+            print(f'\nERROR:{e}')
         return True
-
 
     def install_game(self, zip_path):
 
-        install_path = os.path.abspath("games")
+        if str(self.mod[0]) == 'hl' and os.path.exists(os.path.abspath('./games/Half-Life')):
+            install_path = os.path.abspath(f'./games/Half-Life/{self.mod[1]}')
+            print(f'\nHL mod detected: {self.mod[1]}')
+        else:
+            install_path = os.path.abspath("games")
 
+        self.games.item(self.row, 1).setText("Installing...")
         with zipfile.ZipFile(zip_path, 'r') as zipf:
             zipf.extractall(install_path)
 
