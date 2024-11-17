@@ -62,7 +62,11 @@ class MainWindow(qtw.QMainWindow, Ui_MainWindow):
         self.downloader = GameFetch(self.tbl_games)
 
     def check_status(self):
-        status_col = self.tbl_games.item(self.tbl_games.currentRow(), 1).text().strip()
+        try:
+            status_col = self.tbl_games.item(self.tbl_games.currentRow(), 1).text().strip()
+        except:
+            status_col = ''
+
         if status_col == 'Not Installed':
             self.pb_launch.setDisabled(False)
             self.pb_launch.setText('Install')
@@ -105,8 +109,12 @@ class MainWindow(qtw.QMainWindow, Ui_MainWindow):
     def launch_mode(self):
         if self.pb_launch.text() == 'Install':
             print('game not installed')
-            self.install_game()
+            if not threading.active_count() >= 2:
+                self.install_game()
             # TODO make the install button unusable as soon as pressing (not on reselection)
+            else:
+                # TODO implement multi downloading
+                self.tbl_games.item(self.tbl_games.currentRow(), 1).setText("Install already in progress!")
             self.tbl_games.clearSelection()
         else:
             print('starting game')
@@ -145,6 +153,7 @@ class MainWindow(qtw.QMainWindow, Ui_MainWindow):
                     source = game.get('source')
                     is_mod = game.get('isMod')
                     download_thread = threading.Thread(target=lambda: update_games(self.downloader.download_file(source, is_mod, row), game, row))
+
                     download_thread.start()
                     break
                     # update_thread = threading.Thread(target=update_games, args=(download_thread, game))
@@ -154,7 +163,7 @@ class MainWindow(qtw.QMainWindow, Ui_MainWindow):
     def populate_games(self, games):
         self.tbl_games.setRowCount(0)
         self.tbl_games.setColumnWidth(0, 160)
-        self.tbl_games.setColumnWidth(1, 135)
+        self.tbl_games.setColumnWidth(1, 160)
         # TODO check if the executable is in the right place to determine install status
         for game in games:
             row_position = self.tbl_games.rowCount()  # Get the current row count to append at the end
@@ -177,17 +186,19 @@ class MainWindow(qtw.QMainWindow, Ui_MainWindow):
                     cell.setForeground(qtg.QColor(121, 126, 121))
 
     def open_properties(self):
-
+        # Uninstalling a game
         name_col = self.tbl_games.item(self.tbl_games.currentRow(), 0).text().strip()
         for game in self.games_dic:
             if name_col == game.get('name'):
-                self.dialog = PropertiesDialog(game)
-                self.dialog.show()
+                dialog = PropertiesDialog(game, self.games_dic)
+                dialog.uninstalled_game.connect(lambda: self.populate_games(self.games_dic))
 
+                # Restrict clicking uninstall during installation
+                if self.tbl_games.item(self.tbl_games.currentRow(), 1).text().strip().startswith('Downloaded'):
+                    dialog.pushButton.hide()
+
+                dialog.show()
                 break
-        with open("games.json", "r") as file:
-            local_games = json.load(file)
-        self.dialog.uninstalled_game.connect(lambda: self.populate_games(local_games))
 
     def start_drag(self, event):
         if event.button() == qtc.Qt.MouseButton.LeftButton:

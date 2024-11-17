@@ -11,25 +11,22 @@ import shutil
 class PropertiesDialog(qtw.QDialog, Ui_Dialog):
     uninstalled_game = qtc.Signal()
 
-    def __init__(self, game):
+    def __init__(self, game, games_dic):
         super().__init__()
         self.setupUi(self)
         self.setWindowFlags(qtc.Qt.WindowType.FramelessWindowHint)
         # Set a transparent background for the window
         self.setAttribute(qtc.Qt.WidgetAttribute.WA_TranslucentBackground)
         self.fakepb_icon.setDisabled(True)
+        self.games_dic = games_dic
+        self.game = game
 
-        try:
-            with open(os.path.abspath('./games.json'), "r") as file:
-                self.games_dic = json.load(file)
-        except Exception:
-            print('json is missing')
 
         # Connect close button
         self.pb_close.clicked.connect(self.close)
         self.pb_cancel.clicked.connect(self.close)
         self.pb_min.clicked.connect(self.showMinimized)
-        self.pushButton.clicked.connect(lambda: self.uninstall_game(game))
+        self.pushButton.clicked.connect(self.uninstall_game)
 
         # Enable dragging by setting mouse event handlers on title bar
         self.drag_pos = None
@@ -40,6 +37,7 @@ class PropertiesDialog(qtw.QDialog, Ui_Dialog):
         self.le_name.setDisabled(True)
         self.le_exe.setDisabled(True)
         self.le_dir.setDisabled(True)
+        self.pb_ok.hide()
 
         # POPULATE FIELDS
         self.le_name.setText(game.get('name'))
@@ -47,23 +45,23 @@ class PropertiesDialog(qtw.QDialog, Ui_Dialog):
         self.le_dir.setText(self.game_dir)
         self.le_exe.setText(game.get('exe'))
 
-    def uninstall_game(self, game):
-
+    def uninstall_game(self):
         if os.path.exists(self.game_dir):
             if os.path.isfile(self.game_dir):
                 os.remove(self.game_dir)
             elif os.path.isdir(self.game_dir):
-                shutil.rmtree(self.game_dir)  # Recursively delete the directory
+                shutil.rmtree(self.game_dir)
 
-        u_game_name = game.get('name')
-        for game in self.games_dic:
-            if u_game_name == game.get('name'):
-                game['status'] = 'Not Installed'
+        # Update the in-memory data
+        self.game['status'] = 'Not Installed'
 
-                with open("games.json", "w") as file:
-                    json.dump(self.games_dic, file, indent=4)
-                self.uninstalled_game.emit()
-                self.close()
+        # Save the updated data to the JSON file
+        with open("games.json", "w") as file:
+            json.dump(self.games_dic, file, indent=4)
+
+        # Emit the signal to notify MainWindow
+        self.uninstalled_game.emit()
+        self.close()
 
     def start_drag(self, event):
         if event.button() == qtc.Qt.MouseButton.LeftButton:
