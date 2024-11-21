@@ -44,9 +44,11 @@ class MainWindow(qtw.QMainWindow, Ui_MainWindow):
         # Connect close button
         self.pb_close.clicked.connect(self.close)
         self.pb_min.clicked.connect(self.showMinimized)
-        self.cmenubar = CMenuBar(self.mpb_file, self.populate_games, self.games_dic)
+        self.cmenubar = CMenuBar(self.populate_games, self.games_dic)
         self.pb_launch.clicked.connect(self.launch_mode)
-        self.mpb_file.clicked.connect(self.cmenubar.show_menu)
+        self.mpb_help.clicked.connect(lambda: self.cmenubar.show_debugmenu(self.mpb_help))
+        self.mpb_file.clicked.connect(lambda: self.cmenubar.show_filemenu(self.mpb_file))
+
         self.pb_properties.clicked.connect(self.open_properties)
 
         # Enable dragging by setting mouse event handlers on title bar
@@ -78,6 +80,13 @@ class MainWindow(qtw.QMainWindow, Ui_MainWindow):
                 border: none; /* Remove button borders to match the image */
                 color: rgba(255, 255, 255, 0);
             }
+            QPushButton:pressed {
+                background-image: url(:/buttons/buttons/install_button_pushed.png);
+                background-position: center; /* Center the image */
+                background-repeat: no-repeat; /* Prevent tiling */
+                border: none; /* Remove button borders to match the image */
+                color: rgba(255, 255, 255, 0);
+            }
             ''')
         elif status_col == 'Installed':
             self.pb_launch.setDisabled(False)
@@ -91,7 +100,7 @@ class MainWindow(qtw.QMainWindow, Ui_MainWindow):
                 color: rgba(255, 255, 255, 0);
             }
             ''')
-        elif status_col.startswith('Downloaded'):
+        elif status_col.startswith('Downloaded') or status_col.startswith('Installing'):
             self.pb_launch.setDisabled(True)
         else:
             self.pb_launch.setDisabled(False)

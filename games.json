@@ -42,5 +42,60 @@
         "exe": "cg.exe",
         "isMod": "no",
         "status": "Not Installed"
+    },
+    {
+        "name": "Half-Life Uplink",
+        "year": "1999",
+        "developer": "Valve",
+        "icon": "./assets/games/icons/hluplink.ico",
+        "source": "https://archive.org/download/Half-lifeUplink/hluplink.exe",
+        "directory": "./games/hluplink",
+        "exe": "hluplink.exe",
+        "isMod": "no",
+        "status": "Not Installed"
+    },
+    {
+        "name": "Half-Life Uplink",
+        "year": "1999",
+        "developer": "Valve",
+        "icon": "./assets/games/icons/hluplink.ico",
+        "source": "https://archive.org/download/Half-lifeUplink/hluplink.exe",
+        "directory": "./games/hluplink",
+        "exe": "hluplink.exe",
+        "isMod": "no",
+        "status": "Not Installed"
+    },
+    {
+        "name": "Half-Life Uplink",
+        "year": "1999",
+        "developer": "Valve",
+        "icon": "./assets/games/icons/hluplink.ico",
+        "source": "https://archive.org/download/Half-lifeUplink/hluplink.exe",
+        "directory": "./games/hluplink",
+        "exe": "hluplink.exe",
+        "isMod": "no",
+        "status": "Not Installed"
+    },
+    {
+        "name": "Half-Life Uplink",
+        "year": "1999",
+        "developer": "Valve",
+        "icon": "./assets/games/icons/hluplink.ico",
+        "source": "https://archive.org/download/Half-lifeUplink/hluplink.exe",
+        "directory": "./games/hluplink",
+        "exe": "hluplink.exe",
+        "isMod": "no",
+        "status": "Not Installed"
+    },
+    {
+        "name": "Half-Life Uplink",
+        "year": "1999",
+        "developer": "Valve",
+        "icon": "./assets/games/icons/hluplink.ico",
+        "source": "https://archive.org/download/Half-lifeUplink/hluplink.exe",
+        "directory": "./games/hluplink",
+        "exe": "hluplink.exe",
+        "isMod": "no",
+        "status": "Not Installed"
     }
 ]

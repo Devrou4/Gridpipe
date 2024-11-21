@@ -252,6 +252,12 @@ background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0
     background-position: center; /* Center the image */
     background-repeat: no-repeat; /* Prevent tiling */
     border: none; /* Remove button borders to match the image */
+}
+QPushButton:pressed {
+    background-image: url(:/buttons/buttons/properties_button_pushed.png);
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Prevent tiling */
+    border: none; /* Remove button borders to match the image */
 }</string>
              </property>
              <property name="text">
@@ -299,6 +305,7 @@ background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0
 	border: none;
 	selection-background-color: transparent;
 	outline: none;
+
 }
 
 QHeaderView::section{
@@ -331,7 +338,72 @@ QTableWidget::item:focus {
 	color: rgb(255, 255, 255);
     outline: none;  /* Remove focus outline */
 }
-</string>
+
+
+QScrollBar:vertical {
+    border: none;
+    background: #454545; /* Scrollbar background */
+    width: 24px; /* Width of the scrollbar */
+    margin: 0px 0px 0px 0px; /* No margins */
+	margin-top: 24px;
+}
+
+QScrollBar::handle:vertical {
+    background: #666666; /* Scrollbar handle color */
+    border-radius: 4px; /* Rounded corners for the handle */
+    min-height: 20px; /* Minimum height of the handle */
+    width: 16px; /* Handle width smaller than the scrollbar */
+    margin: 15px 3px; /* Center the handle within the scrollbar */
+}
+
+QScrollBar::add-line:vertical {
+    background: #454545; /* Bottom arrow background */
+    height: 15px; /* Height of the bottom button */
+    subcontrol-position: bottom; /* Position at the bottom */
+    subcontrol-origin: margin;
+    border-radius: 5px;
+	
+}
+
+QScrollBar::sub-line:vertical {
+    background: #454545; /* Top arrow background */
+    height: 15px; /* Height of the top button */
+    subcontrol-position: top; /* Position at the top */
+    subcontrol-origin: margin;
+    border-radius: 5px;
+	margin-top: 24px;
+}
+
+QScrollBar::up-arrow:vertical{
+	width: 18px; /* Width of the arrow */
+    height: 18px; /* Height of the arrow */
+    background: white; /* Arrow color */
+	margin-top: 6px;
+
+}
+
+QScrollBar::down-arrow:vertical{
+	width: 18px; /* Width of the arrow */
+    height: 18px; /* Height of the arrow */
+    background: white; /* Arrow color */
+
+	margin-bottom: 6px;
+}
+
+
+
+QScrollBar::up-arrow:vertical {
+    
+	border-image: url(:/buttons/buttons/arrow-up.png);
+}
+
+QScrollBar::down-arrow:vertical {
+    border-image: url(:/buttons/buttons/arrow-down.png);
+}
+
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+    background: none; /* Transparent space between handle and arrows */
+}</string>
           </property>
           <property name="selectionMode">
            <enum>QAbstractItemView::SelectionMode::SingleSelection</enum>
