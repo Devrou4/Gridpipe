@@ -8,6 +8,10 @@
     <file>bg.png</file>
   </qresource>
   <qresource prefix="buttons">
+    <file>buttons/launch_button_pressed.png</file>
+    <file>buttons/properties_button_hover.png</file>
+    <file>buttons/install_button_hover.png</file>
+    <file>buttons/launch_button_hover.png</file>
     <file>buttons/properties_button_pushed.png</file>
     <file>buttons/arrow-down.png</file>
     <file>buttons/arrow-up.png</file>

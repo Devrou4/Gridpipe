@@ -41,61 +41,50 @@
         "directory": "./games/Codename Gordon",
         "exe": "cg.exe",
         "isMod": "no",
-        "status": "Not Installed"
+        "status": "Installed"
     },
     {
-        "name": "Half-Life Uplink",
-        "year": "1999",
+        "name": "Condition Zero",
+        "year": "2004",
         "developer": "Valve",
-        "icon": "./assets/games/icons/hluplink.ico",
-        "source": "https://archive.org/download/Half-lifeUplink/hluplink.exe",
-        "directory": "./games/hluplink",
-        "exe": "hluplink.exe",
+        "icon": "./assets/games/icons/cs.ico",
+        "source": "",
+        "directory": "",
+        "exe": "cg.exe",
         "isMod": "no",
-        "status": "Not Installed"
+        "status": "WIP"
     },
     {
-        "name": "Half-Life Uplink",
-        "year": "1999",
-        "developer": "Valve",
-        "icon": "./assets/games/icons/hluplink.ico",
-        "source": "https://archive.org/download/Half-lifeUplink/hluplink.exe",
-        "directory": "./games/hluplink",
-        "exe": "hluplink.exe",
+        "name": "Condition Zero Deleted Scenes",
+        "year": "2004",
+        "developer": "Ritual",
+        "icon": "./assets/games/icons/cs.ico",
+        "source": "",
+        "directory": "",
+        "exe": "cg.exe",
         "isMod": "no",
-        "status": "Not Installed"
+        "status": "WIP"
     },
     {
-        "name": "Half-Life Uplink",
-        "year": "1999",
+        "name": "Counter-Strike: Source",
+        "year": "2004",
         "developer": "Valve",
-        "icon": "./assets/games/icons/hluplink.ico",
-        "source": "https://archive.org/download/Half-lifeUplink/hluplink.exe",
-        "directory": "./games/hluplink",
-        "exe": "hluplink.exe",
+        "icon": "./assets/games/icons/cs.ico",
+        "source": "",
+        "directory": "",
+        "exe": "cg.exe",
         "isMod": "no",
-        "status": "Not Installed"
+        "status": "WIP"
     },
     {
-        "name": "Half-Life Uplink",
-        "year": "1999",
+        "name": "Deathmatch Classic",
+        "year": "2004",
         "developer": "Valve",
-        "icon": "./assets/games/icons/hluplink.ico",
-        "source": "https://archive.org/download/Half-lifeUplink/hluplink.exe",
-        "directory": "./games/hluplink",
-        "exe": "hluplink.exe",
+        "icon": "./assets/games/icons/cs.ico",
+        "source": "",
+        "directory": "",
+        "exe": "cg.exe",
         "isMod": "no",
-        "status": "Not Installed"
-    },
-    {
-        "name": "Half-Life Uplink",
-        "year": "1999",
-        "developer": "Valve",
-        "icon": "./assets/games/icons/hluplink.ico",
-        "source": "https://archive.org/download/Half-lifeUplink/hluplink.exe",
-        "directory": "./games/hluplink",
-        "exe": "hluplink.exe",
-        "isMod": "no",
-        "status": "Not Installed"
+        "status": "WIP"
     }
 ]

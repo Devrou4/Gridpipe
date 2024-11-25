@@ -203,6 +203,12 @@ background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0
         </property>
         <item row="1" column="0">
          <widget class="QFrame" name="fr_buttons">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>44</height>
+           </size>
+          </property>
           <property name="styleSheet">
            <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
           </property>
@@ -243,25 +249,29 @@ background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0
              <property name="minimumSize">
               <size>
                <width>100</width>
-               <height>30</height>
+               <height>24</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>24</height>
               </size>
              </property>
              <property name="styleSheet">
               <string notr="true">QPushButton {
-    background-image: url(:/buttons/buttons/properties_button.png);
+	font: 700 9pt &quot;Segoe UI&quot;;
+	color:  #7b7e7a;
+    background: transparent;
     background-position: center; /* Center the image */
     background-repeat: no-repeat; /* Prevent tiling */
-    border: none; /* Remove button borders to match the image */
-}
-QPushButton:pressed {
-    background-image: url(:/buttons/buttons/properties_button_pushed.png);
-    background-position: center; /* Center the image */
-    background-repeat: no-repeat; /* Prevent tiling */
-    border: none; /* Remove button borders to match the image */
+    border: 3px solid #7b7e7a ; /* Remove button borders to match the image */
+	border-radius: 8px;
+	padding: 3px;
 }</string>
              </property>
              <property name="text">
-              <string/>
+              <string>Properties</string>
              </property>
             </widget>
            </item>
@@ -270,19 +280,29 @@ QPushButton:pressed {
              <property name="minimumSize">
               <size>
                <width>100</width>
-               <height>30</height>
+               <height>24</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>24</height>
               </size>
              </property>
              <property name="styleSheet">
               <string notr="true">QPushButton {
-    background-image: url(:/buttons/buttons/launch_button.png);
+	font: 700 9pt &quot;Segoe UI&quot;;
+	color:  #7b7e7a;
+    background: transparent;
     background-position: center; /* Center the image */
     background-repeat: no-repeat; /* Prevent tiling */
-    border: none; /* Remove button borders to match the image */
+    border: 3px solid #7b7e7a ; /* Remove button borders to match the image */
+	border-radius: 8px;
+	padding: 3px;
 }</string>
              </property>
              <property name="text">
-              <string/>
+              <string>Launch</string>
              </property>
             </widget>
            </item>
@@ -313,7 +333,7 @@ QHeaderView::section{
 	color: rgb(216, 222, 211);
 	font: 700 9pt &quot;Segoe UI&quot;;
 	border-top: none;
-	border-right:1px solid qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 255), stop:1 rgba(255, 255, 255, 255));
+	border-right:2px solid qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 255), stop:1 rgba(255, 255, 255, 255));
 }
 QTableCornerButton::section {
     background-color: rgb(101, 106, 98);
@@ -493,6 +513,12 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
     <item row="1" column="0">
      <widget class="QWidget" name="w_menubar" native="true">
       <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <property name="topMargin">
+        <number>6</number>
+       </property>
+       <property name="bottomMargin">
+        <number>6</number>
+       </property>
        <item>
         <widget class="QPushButton" name="mpb_file">
          <property name="styleSheet">

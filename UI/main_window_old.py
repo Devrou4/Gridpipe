@@ -150,7 +150,6 @@ class Ui_MainWindow(object):
         self.gridLayout_2.setContentsMargins(9, -1, -1, -1)
         self.fr_buttons = QFrame(self.tab_games)
         self.fr_buttons.setObjectName(u"fr_buttons")
-        self.fr_buttons.setMinimumSize(QSize(0, 44))
         self.fr_buttons.setStyleSheet(u"background-color: rgba(255, 255, 255, 0);")
         self.fr_buttons.setFrameShape(QFrame.Shape.StyledPanel)
         self.fr_buttons.setFrameShadow(QFrame.Shadow.Raised)
@@ -163,34 +162,30 @@ class Ui_MainWindow(object):
 
         self.pb_properties = QPushButton(self.fr_buttons)
         self.pb_properties.setObjectName(u"pb_properties")
-        self.pb_properties.setMinimumSize(QSize(100, 24))
-        self.pb_properties.setMaximumSize(QSize(16777215, 24))
+        self.pb_properties.setMinimumSize(QSize(100, 30))
         self.pb_properties.setStyleSheet(u"QPushButton {\n"
-"	font: 700 9pt \"Segoe UI\";\n"
-"	color:  #7b7e7a;\n"
-"    background: transparent;\n"
+"    background-image: url(:/buttons/buttons/properties_button.png);\n"
 "    background-position: center; /* Center the image */\n"
 "    background-repeat: no-repeat; /* Prevent tiling */\n"
-"    border: 3px solid #7b7e7a ; /* Remove button borders to match the image */\n"
-"	border-radius: 8px;\n"
-"	padding: 3px;\n"
+"    border: none; /* Remove button borders to match the image */\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    background-image: url(:/buttons/buttons/properties_button_pushed.png);\n"
+"    background-position: center; /* Center the image */\n"
+"    background-repeat: no-repeat; /* Prevent tiling */\n"
+"    border: none; /* Remove button borders to match the image */\n"
 "}")
 
         self.horizontalLayout_2.addWidget(self.pb_properties)
 
         self.pb_launch = QPushButton(self.fr_buttons)
         self.pb_launch.setObjectName(u"pb_launch")
-        self.pb_launch.setMinimumSize(QSize(100, 24))
-        self.pb_launch.setMaximumSize(QSize(16777215, 24))
+        self.pb_launch.setMinimumSize(QSize(100, 30))
         self.pb_launch.setStyleSheet(u"QPushButton {\n"
-"	font: 700 9pt \"Segoe UI\";\n"
-"	color:  #7b7e7a;\n"
-"    background: transparent;\n"
+"    background-image: url(:/buttons/buttons/launch_button.png);\n"
 "    background-position: center; /* Center the image */\n"
 "    background-repeat: no-repeat; /* Prevent tiling */\n"
-"    border: 3px solid #7b7e7a ; /* Remove button borders to match the image */\n"
-"	border-radius: 8px;\n"
-"	padding: 3px;\n"
+"    border: none; /* Remove button borders to match the image */\n"
 "}")
 
         self.horizontalLayout_2.addWidget(self.pb_launch)
@@ -234,7 +229,7 @@ class Ui_MainWindow(object):
 "	color: rgb(216, 222, 211);\n"
 "	font: 700 9pt \"Segoe UI\";\n"
 "	border-top: none;\n"
-"	border-right:2px solid qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 255), stop:1 rgba(255, 255, 255, 255));\n"
+"	border-right:1px solid qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 255), stop:1 rgba(255, 255, 255, 255));\n"
 "}\n"
 "QTableCornerButton::section {\n"
 "    background-color: rgb(101, 106, 98);\n"
@@ -357,7 +352,6 @@ class Ui_MainWindow(object):
         self.w_menubar.setObjectName(u"w_menubar")
         self.horizontalLayout_3 = QHBoxLayout(self.w_menubar)
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
-        self.horizontalLayout_3.setContentsMargins(-1, 6, -1, 6)
         self.mpb_file = QPushButton(self.w_menubar)
         self.mpb_file.setObjectName(u"mpb_file")
         self.mpb_file.setStyleSheet(u"QPushButton{\n"
@@ -441,8 +435,8 @@ class Ui_MainWindow(object):
         self.lb_title.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-weight:700;\">GRIDPIPE</span></p></body></html>", None))
         self.pb_min.setText("")
         self.pb_close.setText("")
-        self.pb_properties.setText(QCoreApplication.translate("MainWindow", u"Properties", None))
-        self.pb_launch.setText(QCoreApplication.translate("MainWindow", u"Launch", None))
+        self.pb_properties.setText("")
+        self.pb_launch.setText("")
         ___qtablewidgetitem = self.tbl_games.horizontalHeaderItem(0)
         ___qtablewidgetitem.setText(QCoreApplication.translate("MainWindow", u"Games", None));
         ___qtablewidgetitem1 = self.tbl_games.horizontalHeaderItem(1)

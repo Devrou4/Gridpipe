@@ -23,23 +23,23 @@ class MainWindow(qtw.QMainWindow, Ui_MainWindow):
         self.fakepb_icon.setDisabled(True)
 
         # self.tbl_games.horizontalHeader().hide()
-        #
-        # # Apply shadow effect to the QTableWidget body only
+
+        # Apply shadow effect to the QTableWidget body only
         # shadow_effect = qtw.QGraphicsDropShadowEffect(self)
         # shadow_effect.setBlurRadius(20)
-        # shadow_effect.setOffset(0, 0)
+        # shadow_effect.setOffset(5, 0)
         # shadow_effect.setColor(qtg.QColor(0, 0, 0, 230))  # Semi-transparent black
         # self.tbl_games.setGraphicsEffect(shadow_effect)
-        #
-        # # Show the headers again after the shadow is applied
-        #
+
+        # Show the headers again after the shadow is applied
+
         # self.tbl_games.horizontalHeader().show()
 
         # Variable to store the offset position for dragging
         self.drag_pos = None
 
         with open("games.json", "r") as file:
-            self.games_dic = json.load(file)
+            self.games_dic: dict = json.load(file)
 
         # Connect close button
         self.pb_close.clicked.connect(self.close)
@@ -59,15 +59,41 @@ class MainWindow(qtw.QMainWindow, Ui_MainWindow):
 
         # Disable Editing
         self.tbl_games.setEditTriggers(qtw.QAbstractItemView.EditTrigger.NoEditTriggers)
-
         self.populate_games(self.games_dic)
         self.downloader = GameFetch(self.tbl_games)
 
     def check_status(self):
-        try:
-            status_col = self.tbl_games.item(self.tbl_games.currentRow(), 1).text().strip()
-        except:
-            status_col = ''
+
+        status_col = self.tbl_games.item(self.tbl_games.currentRow(), 1).text().strip()
+        self.pb_launch.setMinimumHeight(30)
+        self.pb_launch.setMaximumHeight(300)
+        self.pb_properties.setMinimumHeight(30)
+        self.pb_properties.setMaximumHeight(300)
+
+        self.pb_properties.setStyleSheet('''
+            QPushButton {
+                background-image: url(:/buttons/buttons/properties_button.png);
+                background-position: center; /* Center the image */
+                background-repeat: no-repeat; /* Prevent tiling */
+                border: none; /* Remove button borders to match the image */
+                color: rgba(255, 255, 255, 0);
+            }
+            QPushButton:hover {
+                background-image: url(:/buttons/buttons/properties_button_hover.png);
+                background-position: center; /* Center the image */
+                background-repeat: no-repeat; /* Prevent tiling */
+                border: none; /* Remove button borders to match the image */
+                color: rgba(255, 255, 255, 0);
+            }
+            QPushButton:pressed {
+                background-image: url(:/buttons/buttons/properties_button_pushed.png);
+                background-position: center; /* Center the image */
+                background-repeat: no-repeat; /* Prevent tiling */
+                border: none; /* Remove button borders to match the image */
+                color: rgba(255, 255, 255, 0);
+            }
+        
+        ''')
 
         if status_col == 'Not Installed':
             self.pb_launch.setDisabled(False)
@@ -75,6 +101,13 @@ class MainWindow(qtw.QMainWindow, Ui_MainWindow):
             self.pb_launch.setStyleSheet('''
             QPushButton {
                 background-image: url(:/buttons/buttons/install_button.png);
+                background-position: center; /* Center the image */
+                background-repeat: no-repeat; /* Prevent tiling */
+                border: none; /* Remove button borders to match the image */
+                color: rgba(255, 255, 255, 0);
+            }
+            QPushButton:hover {
+                background-image: url(:/buttons/buttons/install_button_hover.png);
                 background-position: center; /* Center the image */
                 background-repeat: no-repeat; /* Prevent tiling */
                 border: none; /* Remove button borders to match the image */
@@ -99,6 +132,21 @@ class MainWindow(qtw.QMainWindow, Ui_MainWindow):
                 border: none; /* Remove button borders to match the image */
                 color: rgba(255, 255, 255, 0);
             }
+            QPushButton:hover {
+                background-image: url(:/buttons/buttons/launch_button_hover.png);
+                background-position: center; /* Center the image */
+                background-repeat: no-repeat; /* Prevent tiling */
+                border: none; /* Remove button borders to match the image */
+                color: rgba(255, 255, 255, 0);
+            }
+            QPushButton:pressed{
+                background-image: url(:/buttons/buttons/launch_button_pressed.png);
+                background-position: center; /* Center the image */
+                background-repeat: no-repeat; /* Prevent tiling */
+                border: none; /* Remove button borders to match the image */
+                color: rgba(255, 255, 255, 0);
+            }
+
             ''')
         elif status_col.startswith('Downloaded') or status_col.startswith('Installing'):
             self.pb_launch.setDisabled(True)
@@ -116,24 +164,26 @@ class MainWindow(qtw.QMainWindow, Ui_MainWindow):
             ''')
 
     def launch_mode(self):
-        if self.pb_launch.text() == 'Install':
-            print('game not installed')
-            if not threading.active_count() >= 2:
-                self.install_game()
-            # TODO make the install button unusable as soon as pressing (not on reselection)
+        if self.tbl_games.currentRow() != -1:
+            print(self.tbl_games.currentRow())
+            if self.pb_launch.text() == 'Install':
+                print('game not installed')
+                if not threading.active_count() >= 2:
+                    self.install_game()
+                # TODO make the install button unusable as soon as pressing (not on reselection)
+                else:
+                    # TODO implement multi downloading
+                    self.tbl_games.item(self.tbl_games.currentRow(), 1).setText("Install already in progress!")
+                self.tbl_games.clearSelection()
             else:
-                # TODO implement multi downloading
-                self.tbl_games.item(self.tbl_games.currentRow(), 1).setText("Install already in progress!")
-            self.tbl_games.clearSelection()
-        else:
-            print('starting game')
-            # self.tbl_games.setFocus()
-            for game in self.games_dic:
-                if game.get('name') == self.tbl_games.item(self.tbl_games.currentRow(), 0).text():
-                    # game_path = f'"games/{os.path.join('/', game.get('name'), game.get('exe'))}"'
-                    game_path = os.path.join(game.get('directory'), game.get('exe'))
-                    print(game_path)
-                    subprocess.Popen(os.path.abspath(game_path), shell=True)
+                print('starting game')
+                # self.tbl_games.setFocus()
+                for game in self.games_dic:
+                    if game.get('name') == self.tbl_games.item(self.tbl_games.currentRow(), 0).text():
+                        # game_path = f'"games/{os.path.join('/', game.get('name'), game.get('exe'))}"'
+                        game_path = os.path.join(game.get('directory'), game.get('exe'))
+                        print(game_path)
+                        subprocess.Popen(os.path.abspath(game_path), shell=True)
 
     def install_game(self):
         if self.tbl_games.item(self.tbl_games.currentRow(), 1).text() != 'Installed':
@@ -171,8 +221,11 @@ class MainWindow(qtw.QMainWindow, Ui_MainWindow):
 
     def populate_games(self, games):
         self.tbl_games.setRowCount(0)
-        self.tbl_games.setColumnWidth(0, 160)
+        self.tbl_games.setColumnWidth(0, 210)
         self.tbl_games.setColumnWidth(1, 160)
+        self.tbl_games.setColumnWidth(2, 100)
+        self.tbl_games.setColumnWidth(3, 60)
+
         # TODO check if the executable is in the right place to determine install status
         for game in games:
             row_position = self.tbl_games.rowCount()  # Get the current row count to append at the end
@@ -193,21 +246,24 @@ class MainWindow(qtw.QMainWindow, Ui_MainWindow):
                 for col in range(self.tbl_games.columnCount()-1):
                     cell = self.tbl_games.item(row_position, col)
                     cell.setForeground(qtg.QColor(121, 126, 121))
+        # self.tbl_games.sortByColumn(0, qtc.Qt.SortOrder.AscendingOrder)
 
     def open_properties(self):
+        # TODO remake the properties dialog
         # Uninstalling a game
-        name_col = self.tbl_games.item(self.tbl_games.currentRow(), 0).text().strip()
-        for game in self.games_dic:
-            if name_col == game.get('name'):
-                dialog = PropertiesDialog(game, self.games_dic)
-                dialog.uninstalled_game.connect(lambda: self.populate_games(self.games_dic))
+        if self.tbl_games.currentRow() != -1:
+            name_col = self.tbl_games.item(self.tbl_games.currentRow(), 0).text().strip()
+            for game in self.games_dic:
+                if name_col == game.get('name'):
+                    dialog = PropertiesDialog(game, self.games_dic)
+                    dialog.uninstalled_game.connect(lambda: self.populate_games(self.games_dic))
 
-                # Restrict clicking uninstall during installation
-                if self.tbl_games.item(self.tbl_games.currentRow(), 1).text().strip().startswith('Downloaded'):
-                    dialog.pushButton.hide()
+                    # Restrict clicking uninstall during installation
+                    if self.tbl_games.item(self.tbl_games.currentRow(), 1).text().strip().startswith('Downloaded'):
+                        dialog.pushButton.hide()
 
-                dialog.show()
-                break
+                    dialog.show()
+                    break
 
     def start_drag(self, event):
         if event.button() == qtc.Qt.MouseButton.LeftButton:
