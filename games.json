@@ -47,44 +47,44 @@
         "name": "Condition Zero",
         "year": "2004",
         "developer": "Valve",
-        "icon": "./assets/games/icons/cs.ico",
+        "icon": "./assets/games/icons/cscz.ico",
         "source": "",
         "directory": "",
         "exe": "cg.exe",
         "isMod": "no",
-        "status": "WIP"
+        "status": "Not Installed"
     },
     {
         "name": "Condition Zero Deleted Scenes",
         "year": "2004",
         "developer": "Ritual",
-        "icon": "./assets/games/icons/cs.ico",
+        "icon": "./assets/games/icons/cscz.ico",
         "source": "",
         "directory": "",
         "exe": "cg.exe",
         "isMod": "no",
-        "status": "WIP"
+        "status": "Not Installed"
     },
     {
         "name": "Counter-Strike: Source",
         "year": "2004",
         "developer": "Valve",
-        "icon": "./assets/games/icons/cs.ico",
+        "icon": "./assets/games/icons/css.ico",
         "source": "",
         "directory": "",
         "exe": "cg.exe",
         "isMod": "no",
-        "status": "WIP"
+        "status": "Not Installed"
     },
     {
         "name": "Deathmatch Classic",
-        "year": "2004",
+        "year": "2001",
         "developer": "Valve",
-        "icon": "./assets/games/icons/cs.ico",
+        "icon": "./assets/games/icons/dmc.ico",
         "source": "",
         "directory": "",
         "exe": "cg.exe",
         "isMod": "no",
-        "status": "WIP"
+        "status": "Not Installed"
     }
 ]
