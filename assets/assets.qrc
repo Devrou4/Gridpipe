@@ -5,6 +5,7 @@
     <file>logo.svg</file>
   </qresource>
   <qresource prefix="bg">
+    <file>bg-trimmed.png</file>
     <file>bg.png</file>
   </qresource>
   <qresource prefix="buttons">

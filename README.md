@@ -1,5 +1,7 @@
 # Gridpipe
 
+### DISCLAIMER: THIS IS A PERSONAL PROJECT FOR LEARNING PURPOSES
+
 <img src="./assets/gridpipe_full.svg">
 
 An attempt to recreate the nostalgic Steam launcher from 2005, implemented using PySide6 (Qt for Python). This project replicates the classic UI and functionality of the original Steam client while allowing users to fetch and install games directly from the Internet Archive.

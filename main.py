@@ -22,6 +22,22 @@ class MainWindow(qtw.QMainWindow, Ui_MainWindow):
         self.setAttribute(qtc.Qt.WidgetAttribute.WA_TranslucentBackground)
         self.fakepb_icon.setDisabled(True)
 
+        # RESIZING
+        # self.setMaximumSize(800,490)
+        # self.gripSize = 16
+        #
+        # self.grips = []
+        # for i in range(4):
+        #     grip = qtw.QSizeGrip(self)
+        #     grip.resize(self.gripSize, self.gripSize)
+        #     opacity_effect = qtw.QGraphicsOpacityEffect(grip)
+        #     opacity_effect.setOpacity(0.0)  # Makes the grip invisible but functional
+        #     grip.setGraphicsEffect(opacity_effect)
+        #     self.grips.append(grip)
+        # RESIZING
+
+        # OLD ATTEMPT FOR HEADER
+
         # self.tbl_games.horizontalHeader().hide()
 
         # Apply shadow effect to the QTableWidget body only
@@ -199,8 +215,6 @@ class MainWindow(qtw.QMainWindow, Ui_MainWindow):
                             json.dump(self.games_dic, file, indent=4)
                         print('Installed')
                         self.populate_games(self.games_dic)
-                    #else:
-                        #self.tbl_games.item(row, 1).setText("ERROR")
 
                 if game.get('name') == self.tbl_games.item(self.tbl_games.currentRow(), 0).text():
                     print(game)
@@ -226,18 +240,28 @@ class MainWindow(qtw.QMainWindow, Ui_MainWindow):
         self.tbl_games.setColumnWidth(2, 100)
         self.tbl_games.setColumnWidth(3, 60)
 
-        # TODO check if the executable is in the right place to determine install status
         for game in games:
             row_position = self.tbl_games.rowCount()  # Get the current row count to append at the end
             self.tbl_games.insertRow(row_position)  # Insert a new empty row
 
+            # Check if game executable is installed
+            game_path = os.path.join(game.get('directory'), game.get('exe'))
+
+            if not os.path.exists(game_path):
+                game['status'] = 'Not Installed'
+                print(f'Game {game.get('name')} is not installed');
+                with open("games.json", "w") as file:
+                    json.dump(self.games_dic, file, indent=4)
+
+            # Fetch game data
             row_data = [game.get('name'), game.get('status'), game.get('year'), game.get('developer')]
+
             for col, data in enumerate(row_data):
                 self.tbl_games.setItem(row_position, col, qtw.QTableWidgetItem(data))
 
             icon = qtg.QIcon()
             pixmap = qtg.QPixmap(game.get('icon'))
-            # TODO icon.addFile() test to fix resolution
+
             icon.addPixmap(pixmap, qtg.QIcon.Mode.Normal)
             icon.addPixmap(pixmap, qtg.QIcon.Mode.Selected)
             self.tbl_games.item(row_position, 0).setIcon(icon)
@@ -279,6 +303,19 @@ class MainWindow(qtw.QMainWindow, Ui_MainWindow):
             event.accept()
 
     # TODO add resize nudge
+    # RESIZING
+    # def resizeEvent(self, event):
+    #     qtw.QWidget.resizeEvent(self, event)
+    #     rect = self.rect()
+    #     # top left grip doesn't need to be moved...
+    #     # top right
+    #     self.grips[1].move(rect.right() - self.gripSize, 0)
+    #     # bottom right
+    #     self.grips[2].move(
+    #         rect.right() - self.gripSize, rect.bottom() - self.gripSize)
+    #     # bottom left
+    #     self.grips[3].move(0, rect.bottom() - self.gripSize)
+    # RESIZING
 
 
 if __name__ == "__main__":

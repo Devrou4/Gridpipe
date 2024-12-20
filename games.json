@@ -19,7 +19,7 @@
         "directory": "./games/Half-Life",
         "exe": "hl.exe -game cstrike",
         "isMod": "hl/cstrike",
-        "status": "Installed"
+        "status": "Not Installed"
     },
     {
         "name": "Half-Life Uplink",
@@ -41,7 +41,7 @@
         "directory": "./games/Codename Gordon",
         "exe": "cg.exe",
         "isMod": "no",
-        "status": "Installed"
+        "status": "Not Installed"
     },
     {
         "name": "Condition Zero",
