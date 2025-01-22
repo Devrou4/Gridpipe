@@ -10,11 +10,22 @@ class GameFetch:
         self.row = None
         self.file_name = None
         self.mod = None
+        self.download_progress_counter = 0
+        self.is_downloading = False
 
     def download_file(self, url, is_mod, row):
+
         self.row = int(row)
         self.is_mod = is_mod
         self.mod = str(self.is_mod).split('/')
+
+        if self.is_downloading:
+            print("Download already in progress.")
+            self.games.item(self.row, 1).setText("Download already in progress.")
+            return
+
+        self.is_downloading = True
+
         if self.mod[0] == 'hl' and not os.path.exists(os.path.abspath('./games/Half-Life')):
             print('Half-Life not Installed')
             self.games.item(self.row, 1).setText("Install Half-Life")
@@ -66,7 +77,11 @@ class GameFetch:
             downloaded = block_num * block_size
             percent = (downloaded / total_size) * 100
 
-            self.games.item(self.row, 1).setText(f"\rDownloaded: {percent:.2f}%")
+            # Only update every 10 blocks (or any other threshold)
+            self.download_progress_counter += 1
+            if self.download_progress_counter % 50 == 0:  # Update every 50 blocks
+                self.games.item(self.row, 1).setText(f"\rDownloaded: {percent:.2f}%")
+                print(f"\rDownloaded: {percent:.2f}%", end="", flush=True)
 
             print(f"\rDownloaded: {percent:.2f}%", end="", flush=True)
 

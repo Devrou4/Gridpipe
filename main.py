@@ -18,7 +18,6 @@ class MainWindow(qtw.QMainWindow, Ui_MainWindow):
         super().__init__()
         self.setupUi(self)
         self.setWindowFlags(qtc.Qt.WindowType.FramelessWindowHint)
-        # Set a transparent background for the window
         self.setAttribute(qtc.Qt.WidgetAttribute.WA_TranslucentBackground)
         self.fakepb_icon.setDisabled(True)
 
@@ -112,6 +111,9 @@ class MainWindow(qtw.QMainWindow, Ui_MainWindow):
         ''')
 
         if status_col == 'Not Installed':
+
+            self.pb_properties.setDisabled(True)
+
             self.pb_launch.setDisabled(False)
             self.pb_launch.setText('Install')
             self.pb_launch.setStyleSheet('''
@@ -138,6 +140,9 @@ class MainWindow(qtw.QMainWindow, Ui_MainWindow):
             }
             ''')
         elif status_col == 'Installed':
+
+            self.pb_properties.setDisabled(False)
+
             self.pb_launch.setDisabled(False)
             self.pb_launch.setText('Launch')
             self.pb_launch.setStyleSheet('''
@@ -229,9 +234,6 @@ class MainWindow(qtw.QMainWindow, Ui_MainWindow):
 
                     download_thread.start()
                     break
-                    # update_thread = threading.Thread(target=update_games, args=(download_thread, game))
-                    # # self.downloader.download_file(game.get('source'), game.get('exe'))
-                    # update_thread.start()
 
     def populate_games(self, games):
         self.tbl_games.setRowCount(0)

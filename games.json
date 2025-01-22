@@ -8,7 +8,7 @@
         "directory": "./games/Half-Life",
         "exe": "hl.exe",
         "isMod": "no",
-        "status": "Installed"
+        "status": "Not Installed"
     },
     {
         "name": "Counter-Strike 1.5",
@@ -81,6 +81,17 @@
         "year": "2001",
         "developer": "Valve",
         "icon": "./assets/games/icons/dmc.ico",
+        "source": "",
+        "directory": "",
+        "exe": "cg.exe",
+        "isMod": "no",
+        "status": "Not Installed"
+    },
+    {
+        "name": "Counter-Strike: Source",
+        "year": "2004",
+        "developer": "Valve",
+        "icon": "./assets/games/icons/css.ico",
         "source": "",
         "directory": "",
         "exe": "cg.exe",
