@@ -19,19 +19,17 @@ class GameFetch:
         self.is_mod = is_mod
         self.mod = str(self.is_mod).split('/')
 
+        if self.mod[0] == 'hl' and not os.path.exists(os.path.abspath('./games/Half-Life')):
+            print('Half-Life not Installed')
+            self.games.item(self.row, 1).setText("Install Half-Life")
+            return
+
         if self.is_downloading:
             print("Download already in progress.")
             self.games.item(self.row, 1).setText("Download already in progress.")
             return
 
         self.is_downloading = True
-
-        if self.mod[0] == 'hl' and not os.path.exists(os.path.abspath('./games/Half-Life')):
-            print('Half-Life not Installed')
-            self.games.item(self.row, 1).setText("Install Half-Life")
-            return
-        else:
-            pass
 
         try:
             # Use urllib.request.urlretrieve with a built-in progress report
@@ -71,6 +69,7 @@ class GameFetch:
         if os.path.exists(zip_path):
             os.remove(zip_path)
         print('extracted game data')
+        self.is_downloading = False
 
     def download_progress(self, block_num, block_size, total_size):
         if total_size > 0:  # Make sure total_size is greater than zero

@@ -22,17 +22,17 @@ class MainWindow(qtw.QMainWindow, Ui_MainWindow):
         self.fakepb_icon.setDisabled(True)
 
         # RESIZING
-        # self.setMaximumSize(800,490)
-        # self.gripSize = 16
-        #
-        # self.grips = []
-        # for i in range(4):
-        #     grip = qtw.QSizeGrip(self)
-        #     grip.resize(self.gripSize, self.gripSize)
-        #     opacity_effect = qtw.QGraphicsOpacityEffect(grip)
-        #     opacity_effect.setOpacity(0.0)  # Makes the grip invisible but functional
-        #     grip.setGraphicsEffect(opacity_effect)
-        #     self.grips.append(grip)
+        self.setMinimumSize(640, 480)
+        self.gripSize = 16
+
+        self.grips = []
+        for i in range(4):
+            grip = qtw.QSizeGrip(self)
+            grip.resize(self.gripSize, self.gripSize)
+            opacity_effect = qtw.QGraphicsOpacityEffect(grip)
+            opacity_effect.setOpacity(0.0)  # Makes the grip invisible but functional
+            grip.setGraphicsEffect(opacity_effect)
+            self.grips.append(grip)
         # RESIZING
 
         # OLD ATTEMPT FOR HEADER
@@ -76,6 +76,14 @@ class MainWindow(qtw.QMainWindow, Ui_MainWindow):
         self.tbl_games.setEditTriggers(qtw.QAbstractItemView.EditTrigger.NoEditTriggers)
         self.populate_games(self.games_dic)
         self.downloader = GameFetch(self.tbl_games)
+
+        self.vp = self.tbl_games.viewport()
+        self.vp.setStyleSheet("border-image: url(:/bg/bg-trimmed.png) 0 0 0 0 stretch stretch;")
+        self.tbl_games.horizontalHeader().setSectionResizeMode(0, qtw.QHeaderView.ResizeMode.Stretch)
+
+        self.tbl_games.horizontalHeader().setStretchLastSection(False)
+
+
 
     def check_status(self):
 
@@ -238,9 +246,9 @@ class MainWindow(qtw.QMainWindow, Ui_MainWindow):
     def populate_games(self, games):
         self.tbl_games.setRowCount(0)
         self.tbl_games.setColumnWidth(0, 210)
-        self.tbl_games.setColumnWidth(1, 160)
+        self.tbl_games.setColumnWidth(1, 165)
         self.tbl_games.setColumnWidth(2, 100)
-        self.tbl_games.setColumnWidth(3, 60)
+        self.tbl_games.setColumnWidth(3, 120)
 
         for game in games:
             row_position = self.tbl_games.rowCount()  # Get the current row count to append at the end
@@ -306,17 +314,17 @@ class MainWindow(qtw.QMainWindow, Ui_MainWindow):
 
     # TODO add resize nudge
     # RESIZING
-    # def resizeEvent(self, event):
-    #     qtw.QWidget.resizeEvent(self, event)
-    #     rect = self.rect()
-    #     # top left grip doesn't need to be moved...
-    #     # top right
-    #     self.grips[1].move(rect.right() - self.gripSize, 0)
-    #     # bottom right
-    #     self.grips[2].move(
-    #         rect.right() - self.gripSize, rect.bottom() - self.gripSize)
-    #     # bottom left
-    #     self.grips[3].move(0, rect.bottom() - self.gripSize)
+    def resizeEvent(self, event):
+        qtw.QWidget.resizeEvent(self, event)
+        rect = self.rect()
+        # top left grip doesn't need to be moved...
+        # top right
+        self.grips[1].move(rect.right() - self.gripSize, 0)
+        # bottom right
+        self.grips[2].move(
+            rect.right() - self.gripSize, rect.bottom() - self.gripSize)
+        # bottom left
+        self.grips[3].move(0, rect.bottom() - self.gripSize)
     # RESIZING
 
 
