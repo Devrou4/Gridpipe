@@ -41,7 +41,7 @@
         "directory": "./games/Codename Gordon",
         "exe": "cg.exe",
         "isMod": "no",
-        "status": "Not Installed"
+        "status": "Installed"
     },
     {
         "name": "Condition Zero",

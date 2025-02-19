@@ -35,22 +35,6 @@ class MainWindow(qtw.QMainWindow, Ui_MainWindow):
             self.grips.append(grip)
         # RESIZING
 
-        # OLD ATTEMPT FOR HEADER
-
-        # self.tbl_games.horizontalHeader().hide()
-
-        # Apply shadow effect to the QTableWidget body only
-        # shadow_effect = qtw.QGraphicsDropShadowEffect(self)
-        # shadow_effect.setBlurRadius(20)
-        # shadow_effect.setOffset(5, 0)
-        # shadow_effect.setColor(qtg.QColor(0, 0, 0, 230))  # Semi-transparent black
-        # self.tbl_games.setGraphicsEffect(shadow_effect)
-
-        # Show the headers again after the shadow is applied
-
-        # self.tbl_games.horizontalHeader().show()
-
-        # Variable to store the offset position for dragging
         self.drag_pos = None
 
         with open("games.json", "r") as file:
@@ -76,18 +60,23 @@ class MainWindow(qtw.QMainWindow, Ui_MainWindow):
         self.tbl_games.setEditTriggers(qtw.QAbstractItemView.EditTrigger.NoEditTriggers)
         self.populate_games(self.games_dic)
         self.downloader = GameFetch(self.tbl_games)
+        self.downloader.send_msg.connect(self.update_game_status)
 
         self.vp = self.tbl_games.viewport()
         self.vp.setStyleSheet("border-image: url(:/bg/bg-trimmed.png) 0 0 0 0 stretch stretch;")
         self.tbl_games.horizontalHeader().setSectionResizeMode(0, qtw.QHeaderView.ResizeMode.Stretch)
 
+        self.tbl_games.setColumnWidth(0, 210)
+        self.tbl_games.setColumnWidth(1, 165)
+        self.tbl_games.setColumnWidth(2, 100)
+        self.tbl_games.setColumnWidth(3, 120)
         self.tbl_games.horizontalHeader().setStretchLastSection(False)
 
-
-
     def check_status(self):
-
-        status_col = self.tbl_games.item(self.tbl_games.currentRow(), 1).text().strip()
+        if self.tbl_games.item(self.tbl_games.currentRow(), 1):
+            status_col = self.tbl_games.item(self.tbl_games.currentRow(), 1).text().strip()
+        else:
+            status_col = ""
         self.pb_launch.setMinimumHeight(30)
         self.pb_launch.setMaximumHeight(300)
         self.pb_properties.setMinimumHeight(30)
@@ -243,12 +232,12 @@ class MainWindow(qtw.QMainWindow, Ui_MainWindow):
                     download_thread.start()
                     break
 
+    @qtc.Slot(int, str)
+    def update_game_status(self, row, msg):
+        self.tbl_games.item(row, 1).setText(msg)
+
     def populate_games(self, games):
         self.tbl_games.setRowCount(0)
-        self.tbl_games.setColumnWidth(0, 210)
-        self.tbl_games.setColumnWidth(1, 165)
-        self.tbl_games.setColumnWidth(2, 100)
-        self.tbl_games.setColumnWidth(3, 120)
 
         for game in games:
             row_position = self.tbl_games.rowCount()  # Get the current row count to append at the end

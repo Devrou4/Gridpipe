@@ -1,10 +1,15 @@
 import os.path
 import urllib.request
 import zipfile
+from PySide6 import QtCore as qtc
 
 
-class GameFetch:
+class GameFetch(qtc.QObject):
+    send_msg = qtc.Signal(int, str)
+
     def __init__(self, games):
+        super().__init__()
+
         self.games = games
         self.is_mod = None
         self.row = None
@@ -21,30 +26,35 @@ class GameFetch:
 
         if self.mod[0] == 'hl' and not os.path.exists(os.path.abspath('./games/Half-Life')):
             print('Half-Life not Installed')
-            self.games.item(self.row, 1).setText("Install Half-Life")
+            # self.games.item(self.row, 1).setText("Install Half-Life")
+            self.send_msg.emit(self.row, "Install Half-Life")
             return
 
         if self.is_downloading:
             print("Download already in progress.")
-            self.games.item(self.row, 1).setText("Download already in progress.")
+            # self.games.item(self.row, 1).setText("Download already in progress.")
+            self.send_msg.emit(self.row, "Download already in progress.")
             return
 
-        self.is_downloading = True
-
         try:
+            self.is_downloading = True
             # Use urllib.request.urlretrieve with a built-in progress report
             self.file_name = os.path.basename(url)
             download_path = os.path.join(os.path.abspath('./games'), self.file_name)
             print(f'Downloading {self.file_name}')
             urllib.request.urlretrieve(url, download_path, reporthook=self.download_progress)
         except Exception:
-            self.games.item(self.row, 1).setText("Connection ERROR")
+            # self.games.item(self.row, 1).setText("Connection ERROR")
+            self.send_msg.emit(self.row, "Connection ERROR")
+            self.is_downloading = False
             return
+
         try:
             self.install_game(download_path)
         except zipfile.BadZipfile:
             print("\nCorrupted zip or non-zip file")
-            self.games.item(self.row, 1).setText("Format ERROR")
+            # self.games.item(self.row, 1).setText("Format ERROR")
+            self.send_msg.emit(self.row, "Format ERROR")
             if os.path.exists(download_path):
                 os.remove(download_path)
             return False
@@ -62,7 +72,8 @@ class GameFetch:
         else:
             install_path = os.path.abspath("games")
 
-        self.games.item(self.row, 1).setText("Installing...")
+        # self.games.item(self.row, 1).setText("Installing...")
+        self.send_msg.emit(self.row, "Installing...")
         with zipfile.ZipFile(zip_path, 'r') as zipf:
             zipf.extractall(install_path)
 
@@ -79,11 +90,13 @@ class GameFetch:
             # Only update every 10 blocks (or any other threshold)
             self.download_progress_counter += 1
             if self.download_progress_counter % 50 == 0:  # Update every 50 blocks
-                self.games.item(self.row, 1).setText(f"\rDownloaded: {percent:.2f}%")
+                # self.games.item(self.row, 1).setText(f"\rDownloaded: {percent:.2f}%")
+                self.send_msg.emit(self.row, f"\rDownloaded: {percent:.2f}%")
                 print(f"\rDownloaded: {percent:.2f}%", end="", flush=True)
 
             print(f"\rDownloaded: {percent:.2f}%", end="", flush=True)
 
         else:
-            self.games.item(self.row, 1).setText(f"\rDownloading...")
+            # self.games.item(self.row, 1).setText(f"\rDownloading...")
+            self.send_msg.emit(self.row, f"\rDownloading...")
             print("\rDownloading...", end="", flush=True)
