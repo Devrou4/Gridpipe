@@ -269,7 +269,6 @@ class MainWindow(qtw.QMainWindow, Ui_MainWindow):
                 for col in range(self.tbl_games.columnCount()-1):
                     cell = self.tbl_games.item(row_position, col)
                     cell.setForeground(qtg.QColor(121, 126, 121))
-        # self.tbl_games.sortByColumn(0, qtc.Qt.SortOrder.AscendingOrder)
 
     def open_properties(self):
         # TODO remake the properties dialog
@@ -301,7 +300,6 @@ class MainWindow(qtw.QMainWindow, Ui_MainWindow):
             self.move(new_pos)
             event.accept()
 
-    # TODO add resize nudge
     # RESIZING
     def resizeEvent(self, event):
         qtw.QWidget.resizeEvent(self, event)

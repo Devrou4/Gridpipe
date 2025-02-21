@@ -17,16 +17,14 @@ class PropertiesDialog(qtw.QDialog, Ui_Dialog):
         self.setWindowFlags(qtc.Qt.WindowType.FramelessWindowHint)
         # Set a transparent background for the window
         self.setAttribute(qtc.Qt.WidgetAttribute.WA_TranslucentBackground)
-        self.fakepb_icon.setDisabled(True)
+
         self.games_dic = games_dic
         self.game = game
 
-
-        # Connect close button
         self.pb_close.clicked.connect(self.close)
-        self.pb_cancel.clicked.connect(self.close)
+        self.pb_close_2.clicked.connect(self.close)
         self.pb_min.clicked.connect(self.showMinimized)
-        self.pushButton.clicked.connect(self.uninstall_game)
+        self.pb_uninstall.clicked.connect(self.uninstall_game)
 
         # Enable dragging by setting mouse event handlers on title bar
         self.drag_pos = None
@@ -34,16 +32,21 @@ class PropertiesDialog(qtw.QDialog, Ui_Dialog):
         self.f_titlebar.mouseMoveEvent = self.drag_window
 
         # TEMP SETUP
-        self.le_name.setDisabled(True)
-        self.le_exe.setDisabled(True)
-        self.le_dir.setDisabled(True)
-        self.pb_ok.hide()
-
-        # POPULATE FIELDS
-        self.le_name.setText(game.get('name'))
+        # self.le_name.setDisabled(True)
+        # self.le_exe.setDisabled(True)
+        # self.le_dir.setDisabled(True)
+        # self.pb_ok.hide()
+        #
+        # # POPULATE FIELDS
+        # self.le_name.setText(game.get('name'))
         self.game_dir = os.path.abspath(game.get('directory'))
-        self.le_dir.setText(self.game_dir)
-        self.le_exe.setText(game.get('exe'))
+        # self.le_dir.setText(self.game_dir)
+        # self.le_exe.setText(game.get('exe'))
+
+        self.lb_gamename.setText(game.get('name'))
+        self.lb_developer.setText(game.get('developer'))
+
+        self.line_line.setStyleSheet('background-color: rgb(70,70,70);')
 
     def uninstall_game(self):
         if os.path.exists(self.game_dir):
